@@ -1,0 +1,75 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  max-width: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.gumb{
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.broj{
+  text-align:right;
+}
+
+.sredina{
+  text-align: center;
+}
+
+.mojnaslov
+{
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+
+.mojakartica
+{
+  width: 300px;
+  margin-left: 20px;
+}
+
+.mojredak
+{
+  margin-top: 40px;
+}
+
+h2
+{
+  margin-bottom: 40px;
+}
+
+.mojznak
+{
+  width: 300px;
+  margin-left: 20px;
+  text-align: center;
+}
+
+.fotkaoglas
+{
+width: 200px;
+
+}
