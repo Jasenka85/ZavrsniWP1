@@ -11,8 +11,9 @@ import imail from '../poruka.png';
 export default class KontrolnaPloca extends Component{
   render(){
   return (
+    <div className="mojdiv">
     <Container>
-      <Row><h2 className="mojnaslov">Kontrolna ploča</h2></Row>
+      <Row><h3 className="mojnaslov">Kontrolna ploča</h3></Row>
       <Row>
         <Col>
         <Card className="mojakartica" >
@@ -26,6 +27,7 @@ export default class KontrolnaPloca extends Component{
           <ListGroup className="list-group-flush">
             <ListGroup.Item><Card.Link href="/korisnici">Pregled korisnika</Card.Link></ListGroup.Item>
             <ListGroup.Item><Card.Link href="/korisnici/dodaj">Dodavanje novog korisnika</Card.Link></ListGroup.Item>
+            <ListGroup.Item><Card.Link href="/korisnici/admini">Administratori i moderatori</Card.Link></ListGroup.Item>
             <ListGroup.Item><Card.Link href="#">Promjena uloge</Card.Link></ListGroup.Item>
             <ListGroup.Item><Card.Link href="#">Blokiranje korisnika</Card.Link></ListGroup.Item>
           </ListGroup>
@@ -72,6 +74,7 @@ export default class KontrolnaPloca extends Component{
         </Col>
       </Row>
           </Container>
+          </div>
       );
   }
 }

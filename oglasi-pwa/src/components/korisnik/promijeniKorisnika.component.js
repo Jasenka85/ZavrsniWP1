@@ -74,8 +74,9 @@ export default class PromijeniKorisnika extends Component {
    const { korisnik} = this.state;
 
    return (
+    <div className="mojdiv">
     <Container>
-      <h2 className="mojnaslov">Promjena korisnika</h2>
+      <h3 className="mojnaslov">Promjena korisnika</h3>
       <Form onSubmit={this.handleSubmit}>
       <Row>
         <Col>  
@@ -124,7 +125,7 @@ export default class PromijeniKorisnika extends Component {
       </Row>
       </Form>
     </Container>
-
+    </div>
 
 
  

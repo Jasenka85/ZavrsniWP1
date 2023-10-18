@@ -56,8 +56,9 @@ export default class DodajKorisnika extends Component {
 
   render() { 
     return (
-    <Container>
-      <h2 className="mojnaslov">Novi korisnik</h2>
+    <div className="mojdiv">
+    <Container>  
+      <h3 className="mojnaslov">Novi korisnik</h3>
       <Form onSubmit={this.handleSubmit}>
       <Row>
         <Col>  
@@ -106,6 +107,7 @@ export default class DodajKorisnika extends Component {
       </Row>
       </Form>
     </Container>
+    </div>
     );
   }
 }

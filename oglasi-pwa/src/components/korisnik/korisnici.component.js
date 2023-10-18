@@ -39,9 +39,10 @@ else {	 alert(odgovor.poruka); }
 render(){
    const {korisnici} = this.state;
    return (
+    <div className="mojdiv">
      <Container>
          
-        <h2 className="mojnaslov">Pregled korisnika</h2>
+        <h3 className="mojnaslov">Pregled korisnika</h3>
             
         <Table striped bordered hover responsive>
          <thead>
@@ -73,6 +74,7 @@ render(){
          </tbody>
       </Table>
   </Container>
+  </div>
         );
     }
 }

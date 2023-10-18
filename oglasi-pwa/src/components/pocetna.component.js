@@ -10,37 +10,41 @@ import objavljujem from '../objavljujem.png';
 export default class Pocetna extends Component{
     render(){
         return (
+          <div className="mojdiv">
         <Container>
-        <Row><h2 className="mojnaslov">Dobrodošli na portal oglasa!</h2></Row>
+        <Row><h3 className="mojnaslov">Dobrodošli na portal oglasa!</h3></Row>
         <Row>
         <Col>
         <Card className="mojznak" >
+          <Card.Body>
+            <Card.Link href="/oglasi/poklanjam" className="mojlink">Oglasi POKLANJAM</Card.Link>
+          </Card.Body>
           <Card.Img variant="top" src={poklanjam} />
-          <Card.Body>
-            <Card.Link href="/oglasi/poklanjam">Oglasi POKLANJAM</Card.Link>
-          </Card.Body>
         </Card>
         </Col>
 
         <Col>
         <Card className="mojznak">
+          <Card.Body>
+            <Card.Link href="/oglasi/trazim" className="mojlink">Oglasi TRAŽIM</Card.Link>
+          </Card.Body>
           <Card.Img variant="top" src={trazim} />
-          <Card.Body>
-            <Card.Link href="/oglasi/trazim">Oglasi TRAŽIM</Card.Link>
-          </Card.Body>
         </Card>
         </Col>
 
         <Col>
         <Card className="mojznak">
-          <Card.Img variant="top" src={objavljujem} />
           <Card.Body>
-            <Card.Link href="/oglasi/novioglas">OBJAVI novi oglas</Card.Link>
+            <Card.Link href="/oglasi/novioglas" className="mojlink">OBJAVI novi oglas</Card.Link>
           </Card.Body>
+          <Card.Img variant="top" src={objavljujem} />
         </Card>
         </Col>
       </Row>
-            </Container>
+
+      
+      </Container>
+      </div>
         );
     }
 }

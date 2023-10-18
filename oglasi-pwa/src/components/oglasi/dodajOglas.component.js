@@ -51,7 +51,7 @@ export default class DodajOglas extends Component {
       email: podaci.get('email'),
       mobitel: podaci.get('mobitel'),
       grad: podaci.get('grad'),
-      kategorija: podaci.get('kategorija'),
+      kategorija: this.state.kategorija,
       naslov: podaci.get('naslov'),
       opis: podaci.get('opis'),
       vrsta_zivotinje: podaci.get('vrsta_zivotinje'),
@@ -64,11 +64,12 @@ export default class DodajOglas extends Component {
 
   render() { 
     return (
-    <Container>
-      <h2 className="mojnaslov">Novi oglas</h2>
+      <div className="mojdiv">
+      <Container>
+      <h3 className="oglasnaslov">Novi oglas</h3>
       <Form onSubmit={this.handleSubmit}>
 
-        <Row><h3>Podaci o korisniku</h3></Row>
+      <Row className="podnaslov">Podaci o korisniku</Row>
 
       <Row>
         <Col>  
@@ -106,15 +107,17 @@ export default class DodajOglas extends Component {
         </Col>
       </Row>
 
-      <Row><h3>Podaci o oglasu</h3></Row>
+      <Row className="podnaslov">Podaci o oglasu</Row>
 
       <Row>
         <Col>  
           <Form.Group className="mb-3" controlId="kategorija">
             <Form.Label>Kategorija</Form.Label>
-            <Form.Select>
-            <option key={1} value="1">Poklanjam životinju</option>
-            <option key={2} value="2">Tražim životinju</option>
+            <Form.Select onChange={e => {
+              this.setState({ kategorija: e.target.value});
+            }}>
+            <option value="1">Poklanjam životinju</option>
+            <option value="2">Tražim životinju</option>
           </Form.Select>
           </Form.Group>
         </Col>
@@ -127,13 +130,13 @@ export default class DodajOglas extends Component {
       </Row>
 
       <Row>
-      <Form.Group className="mb-3" controlId="prezime">
+          <Form.Group className="mb-3" controlId="opis">
             <Form.Label>Opis</Form.Label>
             <Form.Control type="text" name="opis" maxLength={1000} required/> 
           </Form.Group>
-        </Row>
+      </Row>
 
-        <Row>
+      <Row>
         <Col>
           <Form.Group className="mb-3" controlId="vrsta_zivotinje">
             <Form.Label>Vrsta životinje</Form.Label>
@@ -154,7 +157,7 @@ export default class DodajOglas extends Component {
         </Col>
       </Row>
 
-    <Row>
+      <Row>
         <Col>  
           <Form.Group className="mb-3" controlId="spol_zivotinje">
             <Form.Label>Spol životinje</Form.Label>
@@ -163,7 +166,7 @@ export default class DodajOglas extends Component {
         </Col>
         <Col>
           <Form.Group className="mb-3" controlId="kastriran">
-            <Form.Label>Kastriran?</Form.Label>
+            <Form.Label>Kastriran</Form.Label>
             <Form.Control type="text" name="kastriran" maxLength={50} /> 
           </Form.Group>
         </Col>
@@ -182,6 +185,7 @@ export default class DodajOglas extends Component {
       </Row>
       </Form>
     </Container>
+    </div>
     );
   }
 }

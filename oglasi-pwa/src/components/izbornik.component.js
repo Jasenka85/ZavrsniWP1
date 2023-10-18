@@ -11,10 +11,10 @@ import logo from '../logo.svg';
 export default class Izbornik extends Component{
  render(){
   return (
-  
+  <div className="mojdiv">
   <Container>
     <Row>
-    <Image src={header} fluid />
+    <Image className="mojheader" src={header} fluid />
     </Row>
     
     <Row>
@@ -33,6 +33,7 @@ export default class Izbornik extends Component{
 
 
   </Container>
+  </div>
   
         );
     }
