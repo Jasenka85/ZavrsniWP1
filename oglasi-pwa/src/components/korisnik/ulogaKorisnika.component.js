@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import KorisnikDataService from "../../services/korisnik.service";
+import UlogaDataService from "../../services/uloga.service";
 import { Button, Container, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {FaEdit,FaTrash} from "react-icons/fa";
+import {FaEdit,FaBan} from "react-icons/fa";
 
 
-export default class Korisnici extends Component{
+export default class UlogaKorisnika extends Component{
 
 constructor(props)
 {
@@ -20,7 +20,7 @@ componentDidMount()
 
 async dohvatiKorisnike()
 {
-    await KorisnikDataService.get()
+    await UlogaDataService.get()
     .then(response => {
     	this.setState({ korisnici: response.data });
     	console.log(response.data);
@@ -30,11 +30,7 @@ async dohvatiKorisnike()
     });
 }
 
-async obrisiKorisnika(sifra){
-const odgovor = await KorisnikDataService.delete(sifra);
-if(odgovor.ok){  this.dohvatiKorisnike(); }
-else {	 alert(odgovor.poruka); }
-}
+
 
 render(){
    const {korisnici} = this.state;
@@ -42,12 +38,12 @@ render(){
     <div className="mojdiv">
      <Container>
          
-        <h3 className="mojnaslov">Pregled korisnika</h3>
+        <h3 className="mojnaslov">Uloge korisnika</h3>
             
         <Table striped bordered hover responsive>
          <thead>
           <tr>
-          <th>Šifra</th> <th>Uloga</th> <th>Ime i prezime</th> <th>E-mail</th> <th>Broj mobitela</th> <th>Grad</th> <th> </th>
+          <th>Šifra</th> <th>Uloga</th> <th>Ime i prezime</th> <th>E-mail</th> <th>Grad</th> <th> </th>
           </tr>
          </thead>
          <tbody>
@@ -58,16 +54,14 @@ render(){
               <td>{korisnik.nazivUloge}</td>
               <td>{korisnik.ime} {korisnik.prezime}</td>
               <td>{korisnik.email}</td>
-              <td>{korisnik.mobitel}</td>
               <td>{korisnik.grad}</td>
               <td>
                   <Link className="btn btn-primary gumb"
-                      to={`/korisnici/${korisnik.sifra}`}><FaEdit/>
+                      to={`/korisnici/uloga/${korisnik.sifra}`}><FaEdit/>
                   </Link>
-                  <Button variant="danger" className="gumb"
-                       onClick={()=>this.obrisiKorisnika(korisnik.sifra)}>
-                       <FaTrash/>
-                  </Button>
+                  <Link className="btn btn-danger gumb"
+                      to={`/korisnici/uloga/${korisnik.sifra}`}><FaBan/>
+                  </Link>
               </td>
            </tr>
          ))}

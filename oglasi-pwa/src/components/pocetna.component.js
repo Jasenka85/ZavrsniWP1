@@ -10,7 +10,7 @@ import objavljujem from '../objavljujem.png';
 export default class Pocetna extends Component{
     render(){
         return (
-          <div className="mojdiv">
+        <div className="mojdiv">
         <Container>
         <Row><h3 className="mojnaslov">Dobrodošli na portal oglasa!</h3></Row>
         <Row>

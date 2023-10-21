@@ -8,9 +8,12 @@ import Korisnici from './components/korisnik/korisnici.component';
 import KorisniciAdmini from './components/korisnik/administratori.component';
 import DodajKorisnika from './components/korisnik/dodajKorisnika.component';
 import PromijeniKorisnika from './components/korisnik/promijeniKorisnika.component';
+import KorisniciUloga from './components/korisnik/ulogaKorisnika.component';
+import PromijeniUlogu from './components/korisnik/promijeniUlogu.component';
 import Poklanjam from './components/oglasi/poklanjam.component';
 import Trazim from './components/oglasi/trazim.component';
 import NoviOglas from './components/oglasi/dodajOglas.component';
+import NoviOglasAdmin from './components/oglasi/dodajOglasadmin.component';
 
 export default function App() {
   return (
@@ -23,9 +26,12 @@ export default function App() {
         <Route path="/korisnici/admini" element={<KorisniciAdmini />} />
         <Route path="/korisnici/dodaj" element={<DodajKorisnika />} />
         <Route path="/korisnici/:sifra" element={<PromijeniKorisnika />} />
+        <Route path="/korisnici/uloga" element={<KorisniciUloga />} />
+        <Route path="/korisnici/uloga/:sifra" element={<PromijeniUlogu />} />
         <Route path="/oglasi/poklanjam" element={<Poklanjam />} />
         <Route path="/oglasi/trazim" element={<Trazim />} />
         <Route path="/oglasi/novioglas" element={<NoviOglas />} />
+        <Route path="/oglasi/novioglasadmin" element={<NoviOglasAdmin />} />
       </Routes>
      
     </Router>

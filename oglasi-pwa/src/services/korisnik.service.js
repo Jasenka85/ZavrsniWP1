@@ -44,6 +44,8 @@ class KorisnikDataService{
      
            return odgovor;
          }
+
+    
 }
 
 export default new KorisnikDataService();

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import OglasDataService from "../../services/oglas.service";
+import OglasAdminDataService from "../../services/oglasadmin.service";
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -7,21 +7,21 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
 
-export default class DodajOglas extends Component {
+export default class DodajOglasAdmin extends Component {
 
   constructor(props) 
   {
     super(props);
-    this.dodajOglas = this.dodajOglas.bind(this);
+    this.dodajOglasadmin = this.dodajOglasAdmin.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async dodajOglas(oglas) 
+  async dodajOglasAdmin(oglas) 
   {
-    const odgovor = await OglasDataService.post(oglas);
+    const odgovor = await OglasAdminDataService.post(oglas);
     if(odgovor.ok)
     {
-      window.location.href='/';
+      window.location.href='/kontrolnaploca';
     }
     else
     { 
@@ -46,11 +46,7 @@ export default class DodajOglas extends Component {
     const podaci = new FormData(e.target);
     
     this.dodajOglas({
-      ime: podaci.get('ime'),
-      prezime: podaci.get('prezime'),
-      email: podaci.get('email'),
-      mobitel: podaci.get('mobitel'),
-      grad: podaci.get('grad'),
+      sifra_korisnika: parseInt(podaci.get('sifra_korisnika')),
       kategorija: this.state.kategorija,
       naslov: podaci.get('naslov'),
       opis: podaci.get('opis'),
@@ -71,47 +67,13 @@ export default class DodajOglas extends Component {
       <div className="obrazacdiv">
       <Form onSubmit={this.handleSubmit}>
 
-      <Row className="podnaslov">Podaci o korisniku</Row>
-
-      <Row>
-        <Col>  
-          <Form.Group className="mb-3" controlId="ime">
-            <Form.Label>Ime</Form.Label>
-            <Form.Control type="text" name="ime" maxLength={50} required/>
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group className="mb-3" controlId="prezime">
-            <Form.Label>Prezime</Form.Label>
-            <Form.Control type="text" name="prezime" maxLength={50} required/> 
-          </Form.Group>
-        </Col>
-      </Row>
-        
       <Row>
         <Col>
-          <Form.Group className="mb-3" controlId="email">
-            <Form.Label>E-mail</Form.Label>
-            <Form.Control type="text" name="email" maxLength={50} required/>
+          <Form.Group className="mb-3" controlId="sifra_korisnika">
+            <Form.Label>Šifra korisnika</Form.Label>
+            <Form.Control type="text" name="sifra_korisnika" maxLength={10} required/> 
           </Form.Group>
         </Col>
-        <Col>
-          <Form.Group className="mb-3" controlId="mobitel">
-            <Form.Label>Broj mobitela</Form.Label>
-            <Form.Control type="text" name="mobitel" maxLength={50}/>
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group className="mb-3" controlId="grad">
-            <Form.Label>Grad</Form.Label>
-            <Form.Control type="text" name="grad" maxLength={50}/>
-          </Form.Group>
-        </Col>
-      </Row>
-
-      <Row className="podnaslov">Podaci o oglasu</Row>
-
-      <Row>
         <Col>  
           <Form.Group className="mb-3" controlId="kategorija">
             <Form.Label>Kategorija</Form.Label>

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import AdminiDataService from "../../services/administratori.service";
 import { Button, Container, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 export default class Administratori extends Component{
@@ -50,7 +51,7 @@ render(){
             administratori && administratori.map((korisnik,index)=>(
             <tr key={index}>
               <td>{korisnik.sifra}</td> 
-              <td>{korisnik.uloga==1? "administrator" : "moderator" }</td>
+              <td>{korisnik.nazivUloge}</td>
               <td>{korisnik.ime} {korisnik.prezime}</td>
               <td>{korisnik.email}</td>
               <td>{korisnik.mobitel}</td>
@@ -60,6 +61,7 @@ render(){
          ))}
          </tbody>
       </Table>
+      
   </Container>
   </div>
         );

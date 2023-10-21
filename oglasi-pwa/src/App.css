@@ -93,16 +93,24 @@ text-decoration: none;
 width: 150px;
 }
 
+
+
+
 .mojdiv
 {
   background-color: white;
   display: flex;
-  width: 75%;
   justify-content:center;
   margin:0 auto;
+  max-width: 960px;
+}
+
+.obrazacdiv
+{
   padding-left: 20px;
   padding-right: 20px;
 }
+
 
 .mojheader
 {
