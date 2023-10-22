@@ -28,7 +28,8 @@ export default class KontrolnaPloca extends Component{
             <ListGroup.Item><Card.Link href="/korisnici">Pregled korisnika</Card.Link></ListGroup.Item>
             <ListGroup.Item><Card.Link href="/korisnici/dodaj">Dodavanje novog korisnika</Card.Link></ListGroup.Item>
             <ListGroup.Item><Card.Link href="/korisnici/admini">Administratori i moderatori</Card.Link></ListGroup.Item>
-            <ListGroup.Item><Card.Link href="/korisnici/uloga">Promjena uloge korisnika</Card.Link></ListGroup.Item>
+            <ListGroup.Item><Card.Link href="/korisnici/uloga">Promjena uloge i blokiranje</Card.Link></ListGroup.Item>
+            <ListGroup.Item><Card.Link href="/crnalista">Crna lista</Card.Link></ListGroup.Item>
           </ListGroup>
           
         </Card>

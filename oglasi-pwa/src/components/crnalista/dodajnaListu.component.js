@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import UlogaDataService from "../../services/uloga.service";
+import ListaDataService from "../../services/crnalista.service";
+import KorisnikDataService from "../../services/korisnik.service";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import users from '../../users.jpg';
@@ -9,25 +10,35 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
 
-export default class PromjenaUloge extends Component {
 
-  constructor(props) {
+export default class DodajnaListu extends Component {
+
+  constructor(props) 
+  {
     super(props);
-    this.korisnik = this.dohvatiKorisnika();
-    this.promijeniUlogu = this.promijeniUlogu.bind(this);
+    this.dohvatiKorisnika = this.dohvatiKorisnika.bind(this);
+    this.dodajnaListu = this.dodajnaListu.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { korisnik: {} };
+    this.state = { korisnik: {}, sifrakorisnika:0 };
   }
+
+
+  componentDidMount()
+{
+    this.dohvatiKorisnika();
+}
+
 
   async dohvatiKorisnika() {
     let href = window.location.href;
     let niz = href.split('/');
     //rastavi link na dijelove prema / i spremi to u niz, uzmi zadnji element niza (šifra)
     //i nađi korisnika s tom šifrom 
-    await UlogaDataService.getBySifra(niz[niz.length-1])
+    await KorisnikDataService.getBySifra(niz[niz.length-1])
       .then(response => {
         this.setState({
-          korisnik: response.data
+          korisnik: response.data,
+          korisniksifra: niz[niz.length-1]
         });
       })
       .catch(e => {
@@ -35,48 +46,50 @@ export default class PromjenaUloge extends Component {
       });
   }
 
-  async promijeniUlogu(korisnik) {
-    let href = window.location.href;
-    let niz = href.split('/'); 
-    const odgovor = await UlogaDataService.put(niz[niz.length-1],korisnik);
+
+
+  async dodajnaListu(lista) 
+  {
+    const odgovor = await ListaDataService.post(lista);
     if(odgovor.ok)
     {
       window.location.href='/korisnici/uloga';
     }
     else
-    {
-      console.log(odgovor);
+    { 
+      let poruke = '';
+      for (const key in odgovor.poruka.errors) 
+      {
+        if (odgovor.poruka.errors.hasOwnProperty(key)) 
+        {
+          poruke += `${odgovor.poruka.errors[key]}` + '\n'; 
+        }
+      }
+      alert(poruke);
     }
   }
 
-
   handleSubmit(e) 
   {
+    // Prevent the browser from reloading the page
     e.preventDefault();
 
+    
+    // Read the form data
     const podaci = new FormData(e.target);
     
-    this.promijeniUlogu({
-      uloga: this.state.uloga,
-      ime: "nebitno",
-      prezime: "nebitno",
-      email: "nebitno",
-      lozinka: podaci.get('lozinka'),
-      mobitel: "nebitno",
-      grad: "nebitno"
+    this.dodajnaListu({
+      sifra_korisnika: this.state.korisniksifra,
+      razlog_blokiranja: podaci.get('razlog_blokiranja')
     });
   }
 
-  
-
-  render() {
-    
-   const { korisnik} = this.state;
-
-   return (
+  render() { 
+    const { korisnik} = this.state;
+    return (
     <div className="mojdiv">
-    <Container>
-      <Row><h3 className="mojnaslov">Promjena uloge korisnika</h3></Row>
+    <Container>  
+      <Row><h3 className="mojnaslov">Stavi korisnika na crnu listu</h3></Row>
 
       <Row>
         <Col> </Col>
@@ -95,39 +108,24 @@ export default class PromjenaUloge extends Component {
         </Col>
         <Col> </Col>
         </Row>
+      
 
-        <div className="obrazacdiv">
-        
+      <div className="obrazacdiv">
       <Form onSubmit={this.handleSubmit}>
       <Row>
-      <Col>  
-          <Form.Group className="mb-3" controlId="uloga">
-            <Form.Label>Uloga korisnika</Form.Label>
-            <Form.Select onChange={e => {
-              this.setState({ uloga: e.target.value});
-            }}>
-            <option value="0">korisnik</option>
-            <option value="1">administrator</option>
-            <option value="2">moderator</option>
-          </Form.Select>
+          <Form.Group className="mb-3" controlId="razlog_blokiranja">
+            <Form.Label>Razlog blokiranja</Form.Label>
+            <Form.Control type="text" name="razlog_blokiranja" maxLength={1000} required/>
           </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group className="mb-3" controlId="lozinka">
-            <Form.Label>Lozinka</Form.Label>
-            <Form.Control type="text" name="lozinka" maxLength={100}/>
-            <Form.Text className="text-muted">Potrebna samo za administratora i moderatora</Form.Text>
-          </Form.Group>
-        </Col>
       </Row>
-      
+
       <Row className="mojredak">
         <Col> </Col>
         <Col>
           <Link className="btn btn-danger gumb" to={`/korisnici/uloga`}>Odustani</Link>
         </Col>
         <Col>
-          <Button variant="primary" className="gumb" type="submit">Promijeni ulogu korisnika</Button>
+          <Button variant="primary" className="gumb" type="submit">Stavi na crnu listu</Button>
         </Col>
         <Col> </Col>
       </Row>
@@ -135,9 +133,6 @@ export default class PromjenaUloge extends Component {
       </div>
     </Container>
     </div>
-
-
- 
     );
   }
 }

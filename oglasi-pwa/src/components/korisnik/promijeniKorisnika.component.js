@@ -77,6 +77,8 @@ export default class PromijeniKorisnika extends Component {
     <div className="mojdiv">
     <Container>
       <h3 className="mojnaslov">Promjena korisnika</h3>
+
+      <div className="obrazacdiv">
       <Form onSubmit={this.handleSubmit}>
       <Row>
         <Col>  
@@ -124,6 +126,7 @@ export default class PromijeniKorisnika extends Component {
         <Col> </Col>
       </Row>
       </Form>
+      </div>
     </Container>
     </div>
 

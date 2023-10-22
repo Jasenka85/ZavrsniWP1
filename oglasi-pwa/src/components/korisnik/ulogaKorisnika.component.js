@@ -60,7 +60,7 @@ render(){
                       to={`/korisnici/uloga/${korisnik.sifra}`}><FaEdit/>
                   </Link>
                   <Link className="btn btn-danger gumb"
-                      to={`/korisnici/uloga/${korisnik.sifra}`}><FaBan/>
+                      to={`/crnalista/dodaj/${korisnik.sifra}`}><FaBan/>
                   </Link>
               </td>
            </tr>

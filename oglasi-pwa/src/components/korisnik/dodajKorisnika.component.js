@@ -59,6 +59,8 @@ export default class DodajKorisnika extends Component {
     <div className="mojdiv">
     <Container>  
       <h3 className="mojnaslov">Novi korisnik</h3>
+
+      <div className="obrazacdiv">
       <Form onSubmit={this.handleSubmit}>
       <Row>
         <Col>  
@@ -106,6 +108,7 @@ export default class DodajKorisnika extends Component {
         <Col> </Col>
       </Row>
       </Form>
+      </div>
     </Container>
     </div>
     );

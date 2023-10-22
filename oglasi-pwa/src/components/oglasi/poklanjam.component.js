@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PoklanjamDataService from "../../services/poklanjam.service";
-import { Button, Container, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container, Table } from "react-bootstrap";
 import moment from 'moment';
 import Image from 'react-bootstrap/Image';
 import nemafoto from '../nemafoto.jpg';
