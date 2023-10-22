@@ -45,9 +45,9 @@ export default class KontrolnaPloca extends Component{
             </Card.Text>
           </Card.Body>
           <ListGroup className="list-group-flush">
-            <ListGroup.Item><Card.Link href="#">Pregled oglasa</Card.Link></ListGroup.Item>
-            <ListGroup.Item><Card.Link href="#">Dodavanje novog oglasa</Card.Link></ListGroup.Item>
-            <ListGroup.Item><Card.Link href="#">Aktivacija oglasa</Card.Link></ListGroup.Item>
+            <ListGroup.Item><Card.Link href="/oglasi">Pregled oglasa</Card.Link></ListGroup.Item>
+            <ListGroup.Item><Card.Link href="#">Novi oglas od korisnika</Card.Link></ListGroup.Item>
+            <ListGroup.Item><Card.Link href="#">Svi oglasi od korisnika</Card.Link></ListGroup.Item>
             
           </ListGroup>
           

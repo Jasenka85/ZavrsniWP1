@@ -61,9 +61,8 @@ export default class PromjenaUloge extends Component {
       ime: "nebitno",
       prezime: "nebitno",
       email: "nebitno",
-      lozinka: podaci.get('lozinka'),
-      mobitel: "nebitno",
-      grad: "nebitno"
+      lozinka: podaci.get('lozinka')
+      
     });
   }
 

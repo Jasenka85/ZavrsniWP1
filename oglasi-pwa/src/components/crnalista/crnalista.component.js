@@ -32,12 +32,13 @@ async dohvatiListu()
 
 async obrisiizListe(sifra){
 const odgovor = await ListaDataService.delete(sifra);
-if(odgovor.ok){  this.dohvatiListu(); }
+if(odgovor.ok){  window.location.href='/crnalista'; }
 else {	 alert(odgovor.poruka); }
 }
 
 render(){
    const {zapisi} = this.state;
+   
    return (
     <div className="mojdiv">
      <Container>
