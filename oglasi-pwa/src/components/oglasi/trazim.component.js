@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TrazimDataService from "../../services/trazim.service";
-import { Button, Container, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container, Table } from "react-bootstrap";
 import moment from 'moment';
 
 export default class Trazim extends Component{
@@ -46,7 +45,7 @@ render(){
          </thead>
          <tbody>
          {
-            trazim && trazim.map((oglas,index)=>(
+            trazim && trazim.length>0 && trazim.map((oglas,index)=>(
             <tr key={index}>
               <td>{oglas.naslov}</td> 
               <td>{oglas.vrsta_zivotinje}</td>

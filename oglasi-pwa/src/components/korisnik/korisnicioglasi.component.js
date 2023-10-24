@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import UlogaDataService from "../../services/uloga.service";
+import KorisnikDataService from "../../services/korisnik.service";
 import { Container, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {FaEdit,FaBan} from "react-icons/fa";
+import {FaClipboardList} from "react-icons/fa";
 
 
-export default class UlogaKorisnika extends Component{
+export default class Korisnici extends Component{
 
 constructor(props)
 {
@@ -20,7 +20,7 @@ componentDidMount()
 
 async dohvatiKorisnike()
 {
-    await UlogaDataService.get()
+    await KorisnikDataService.get()
     .then(response => {
     	this.setState({ korisnici: response.data });
     	console.log(response.data);
@@ -30,7 +30,11 @@ async dohvatiKorisnike()
     });
 }
 
-
+async obrisiKorisnika(sifra){
+const odgovor = await KorisnikDataService.delete(sifra);
+if(odgovor.ok){  window.location.href='/korisnici'; }
+else {	 alert(odgovor.poruka); }
+}
 
 render(){
    const {korisnici} = this.state;
@@ -38,12 +42,12 @@ render(){
     <div className="mojdiv">
      <Container>
          
-        <h3 className="mojnaslov">Uloge korisnika</h3>
+        <h3 className="mojnaslov">Pregled korisnika</h3>
             
         <Table striped bordered hover responsive>
          <thead>
           <tr>
-          <th>Šifra</th> <th>Uloga</th> <th>Ime i prezime</th> <th>E-mail</th> <th>Grad</th> <th> </th>
+          <th>Šifra</th> <th>Uloga</th> <th>Ime i prezime</th> <th>E-mail</th> <th>Broj mobitela</th> <th>Grad</th> <th> </th>
           </tr>
          </thead>
          <tbody>
@@ -54,13 +58,11 @@ render(){
               <td>{korisnik.nazivUloge}</td>
               <td>{korisnik.ime} {korisnik.prezime}</td>
               <td>{korisnik.email}</td>
+              <td>{korisnik.mobitel}</td>
               <td>{korisnik.grad}</td>
               <td>
-                  <Link className="btn btn-primary gumb"
-                      to={`/korisnici/uloga/${korisnik.sifra}`}><FaEdit/>
-                  </Link>
-                  <Link className="btn btn-danger gumb"
-                      to={`/crnalista/dodaj/${korisnik.sifra}`}><FaBan/>
+                <Link className="btn btn-primary gumb"
+                      to={`/korisnici/oglasi/${korisnik.sifra}`}><FaClipboardList/>
                   </Link>
               </td>
            </tr>

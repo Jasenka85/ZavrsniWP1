@@ -52,7 +52,7 @@ render(){
          </thead>
          <tbody>
          {
-            korisnici && korisnici.map((korisnik,index)=>(
+            korisnici && korisnici.length>0 && korisnici.map((korisnik,index)=>(
             <tr key={index}>
               <td>{korisnik.sifra}</td> 
               <td>{korisnik.nazivUloge}</td>

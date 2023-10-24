@@ -48,7 +48,7 @@ render(){
          </thead>
          <tbody>
          {
-            poklanjam && poklanjam.map((oglas,index)=>(
+            poklanjam && poklanjam.length>0 && poklanjam.map((oglas,index)=>(
             <tr key={index}>
               <td><Image src={nemafoto} className="fotkaoglas" /></td>
               <td>{oglas.naslov}</td> 

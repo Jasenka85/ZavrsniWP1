@@ -53,11 +53,11 @@ render(){
          </thead>
          <tbody>
          {
-            oglasi && oglasi.map((oglas,index)=>(
+            oglasi && oglasi.length>0 && oglasi.map((oglas,index)=>(
             <tr key={index}>
               <td>{oglas.sifra}</td> 
               <td>{oglas.naslov}</td>
-              <td>{oglas.kategorija==1 ? 'poklanjam' : 'tražim'}</td>
+              <td>{oglas.kategorija===1 ? 'poklanjam' : 'tražim'}</td>
               <td>{moment.utc(oglas.datum_objave).format("DD.MM.YYYY.")}</td>
               <td>{oglas.aktivan ? 'da' : 'ne'}</td>
               <td>

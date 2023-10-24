@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import AdminiDataService from "../../services/administratori.service";
-import { Button, Container, Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {FaClipboardList} from "react-icons/fa";
 
 
 export default class Administratori extends Component{
@@ -43,19 +42,22 @@ render(){
         <Table striped bordered hover responsive>
          <thead>
           <tr>
-          <th>Šifra</th> <th>Uloga</th> <th>Ime i prezime</th> <th>E-mail</th> <th>Broj mobitela</th> <th>Grad</th>
+          <th>Šifra</th> <th>Uloga</th> <th>Ime i prezime</th> <th>E-mail</th> <th> </th> 
           </tr>
          </thead>
          <tbody>
          {
-            administratori && administratori.map((korisnik,index)=>(
+            administratori && administratori.length>0 && administratori.map((korisnik,index)=>(
             <tr key={index}>
               <td>{korisnik.sifra}</td> 
               <td>{korisnik.nazivUloge}</td>
               <td>{korisnik.ime} {korisnik.prezime}</td>
               <td>{korisnik.email}</td>
-              <td>{korisnik.mobitel}</td>
-              <td>{korisnik.grad}</td>
+              <td>
+                  <Link className="btn btn-primary gumb"
+                      to={`/korisnici/oglasi/${korisnik.sifra}`}><FaClipboardList/>
+                  </Link>
+              </td>
               
            </tr>
          ))}
