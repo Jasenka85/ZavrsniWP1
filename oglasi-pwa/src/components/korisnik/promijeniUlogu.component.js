@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import UlogaDataService from "../../services/uloga.service";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 import users from '../../users.jpg';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -55,14 +56,16 @@ export default class PromjenaUloge extends Component {
     e.preventDefault();
 
     const podaci = new FormData(e.target);
+
+    var select = document.getElementById('uloga');
+    var vrijednost = select.options[select.selectedIndex].value;
     
     this.promijeniUlogu({
-      uloga: this.state.uloga,
+      uloga: parseInt(vrijednost),
       ime: "nebitno",
       prezime: "nebitno",
       email: "nebitno",
       lozinka: podaci.get('lozinka')
-      
     });
   }
 
@@ -78,21 +81,21 @@ export default class PromjenaUloge extends Component {
       <Row><h3 className="mojnaslov">Promjena uloge korisnika</h3></Row>
 
       <Row>
-        <Col> </Col>
+        <Col></Col>
         <Col>
-        <Card className="mojakartica" >
+        <Card className="mojakartica sredina" >
           <Card.Img variant="top" src={users} />
           <Card.Body>
             <Card.Title>{korisnik.ime} {korisnik.prezime}</Card.Title>
-            <Card.Text>
-            <p>{korisnik.email}</p>
-            <p>{korisnik.mobitel}</p>
-            <p>{korisnik.grad}</p>
-            </Card.Text>
           </Card.Body>
+          <ListGroup variant="flush">
+              <ListGroup.Item>{korisnik.email}</ListGroup.Item>
+              <ListGroup.Item>{korisnik.mobitel}</ListGroup.Item>
+              <ListGroup.Item>{korisnik.grad}</ListGroup.Item>
+          </ListGroup>
         </Card>
         </Col>
-        <Col> </Col>
+        <Col></Col>
         </Row>
 
         <div className="obrazacdiv">
@@ -102,7 +105,7 @@ export default class PromjenaUloge extends Component {
       <Col>  
           <Form.Group className="mb-3" controlId="uloga">
             <Form.Label>Uloga korisnika</Form.Label>
-            <Form.Select onChange={e => {
+            <Form.Select defaultValue={korisnik.uloga} onChange={e => {
               this.setState({ uloga: e.target.value});
             }}>
             <option value="0">korisnik</option>

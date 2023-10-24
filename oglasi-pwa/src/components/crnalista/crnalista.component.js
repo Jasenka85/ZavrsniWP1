@@ -53,7 +53,7 @@ render(){
          </thead>
          <tbody>
          {
-            zapisi && zapisi.map((zapis,index)=>(
+            zapisi && zapisi.length>0 && zapisi.map((zapis,index)=>(
             <tr key={index}>
               <td>{zapis.sifra}</td> 
               <td>{zapis.korisnik}</td>

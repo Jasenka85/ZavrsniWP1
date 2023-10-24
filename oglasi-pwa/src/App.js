@@ -11,6 +11,7 @@ import PromijeniKorisnika from './components/korisnik/promijeniKorisnika.compone
 import KorisniciUloga from './components/korisnik/ulogaKorisnika.component';
 import PromijeniUlogu from './components/korisnik/promijeniUlogu.component';
 import SviOglasi from './components/oglasi/svioglasi.component';
+import PromijeniOglas from './components/oglasi/promijeniOglas.component';
 import Poklanjam from './components/oglasi/poklanjam.component';
 import Trazim from './components/oglasi/trazim.component';
 import NoviOglas from './components/oglasi/dodajOglas.component';
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/korisnici/uloga" element={<KorisniciUloga />} />
         <Route path="/korisnici/uloga/:sifra" element={<PromijeniUlogu />} />
         <Route path="/oglasi" element={<SviOglasi />} />
+        <Route path="/oglasi/:sifra" element={<PromijeniOglas />} />
         <Route path="/oglasi/poklanjam" element={<Poklanjam />} />
         <Route path="/oglasi/trazim" element={<Trazim />} />
         <Route path="/oglasi/novioglas" element={<NoviOglas />} />

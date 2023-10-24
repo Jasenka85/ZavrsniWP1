@@ -5,29 +5,48 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from "react-router-dom";
 
-export default class DodajOglasAdmin extends Component {
+export default class PromijeniOglas extends Component {
 
-  constructor(props) 
-  {
+  constructor(props) {
     super(props);
-    this.dodajOglasAdmin = this.dodajOglasAdmin.bind(this);
+    this.oglas = this.dohvatiOglas();
+    this.promijeniOglas = this.promijeniOglas.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { oglas: {} };
   }
 
-  async dodajOglasAdmin(oglas) 
-  {
-    const odgovor = await OglasAdminDataService.post(oglas);
+  async dohvatiOglas() {
+    let href = window.location.href;
+    let niz = href.split('/');
+    await OglasAdminDataService.getBySifra(niz[niz.length-1])
+      .then(response => {
+        this.setState({
+          oglas: response.data
+        });
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  async promijeniOglas(oglas) {
+    // ovo mora bolje
+    let href = window.location.href;
+    let niz = href.split('/'); 
+    const odgovor = await OglasAdminDataService.put(niz[niz.length-1],oglas);
     if(odgovor.ok)
     {
       window.location.href='/oglasi';
     }
     else
-    { 
+    {
       console.log(odgovor);
     }
   }
+
 
   handleSubmit(e) 
   {
@@ -36,12 +55,12 @@ export default class DodajOglasAdmin extends Component {
 
     // Read the form data
     const podaci = new FormData(e.target);
-
+    
     var select = document.getElementById('kategorija');
     var vrijednost = select.options[select.selectedIndex].value;
-    
-    this.dodajOglasAdmin({
-      sifra_korisnika: parseInt(podaci.get('sifra_korisnika')),
+
+    this.promijeniOglas({
+      aktivan: podaci.get('aktivan')==='on' ? true : false,
       kategorija: parseInt(vrijednost),
       naslov: podaci.get('naslov'),
       opis: podaci.get('opis'),
@@ -53,27 +72,41 @@ export default class DodajOglasAdmin extends Component {
     });
   }
 
-  render() { 
+  
+
+  render() {
     
-    return (
-      <div className="mojdiv">
-      <Container>
-      <h3 className="oglasnaslov">Novi oglas</h3>
-      
+   const {oglas} = this.state;
+   
+   return (
+    <div className="mojdiv">
+    <Container>
+      <h3 className="mojnaslov">Promjena oglasa</h3>
+      <div className="poznat">
+    <Row>
+      <Col>
+        <ListGroup horizontal>
+        <ListGroup.Item>Šifra korisnika:</ListGroup.Item>
+        <ListGroup.Item>{oglas.sifra_korisnika}</ListGroup.Item>
+        </ListGroup>
+      </Col>
+      <Col>
+      <ListGroup horizontal>
+      <ListGroup.Item>Korisnik:</ListGroup.Item>
+      <ListGroup.Item>{oglas.korisnik}</ListGroup.Item>
+      </ListGroup>
+      </Col>
+      <Col></Col>
+      </Row>
+      </div>
+
       <div className="obrazacdiv">
       <Form onSubmit={this.handleSubmit}>
-
       <Row>
-        <Col>
-          <Form.Group className="mb-3" controlId="sifra_korisnika">
-            <Form.Label>Šifra korisnika</Form.Label>
-            <Form.Control type="text" name="sifra_korisnika" maxLength={10} required/> 
-          </Form.Group>
-        </Col>
         <Col>  
-        <Form.Group className="mb-3" controlId="kategorija">
+          <Form.Group className="mb-3" controlId="kategorija">
             <Form.Label>Kategorija</Form.Label>
-            <Form.Select onChange={e => {
+            <Form.Select defaultValue="{korisnik.uloga}" onChange={e => {
               this.setState({kategorija: e.target.value});
               }}>
             <option value="1">Poklanjam životinju</option>
@@ -84,69 +117,71 @@ export default class DodajOglasAdmin extends Component {
         <Col>
           <Form.Group className="mb-3" controlId="naslov">
             <Form.Label>Naslov</Form.Label>
-            <Form.Control type="text" name="naslov" maxLength={100} required/> 
+            <Form.Control type="text" name="naslov" maxLength={100} defaultValue={oglas.naslov} required/> 
+          </Form.Group>
+        </Col>
+        <Col>
+        <Form.Group className="mb-3" controlId="aktivan">
+            <Form.Check defaultChecked={oglas.aktivan} reverse label="Aktivan" name="aktivan"/>
+        </Form.Group>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Group className="mb-3" controlId="opis">
+            <Form.Label>Opis</Form.Label>
+            <Form.Control type="text" name="opis" maxLength={1000} defaultValue={oglas.opis} required/> 
           </Form.Group>
         </Col>
       </Row>
-
-      <Row>
-          <Form.Group className="mb-3" controlId="opis">
-            <Form.Label>Opis</Form.Label>
-            <Form.Control type="text" name="opis" maxLength={1000} required/> 
-          </Form.Group>
-      </Row>
-
       <Row>
         <Col>
           <Form.Group className="mb-3" controlId="vrsta_zivotinje">
             <Form.Label>Vrsta životinje</Form.Label>
-            <Form.Control type="text" name="vrsta_zivotinje" maxLength={50} required/>
+            <Form.Control type="text" name="vrsta_zivotinje" maxLength={50} defaultValue={oglas.vrsta_zivotinje} required/>
           </Form.Group>
         </Col>
         <Col>
           <Form.Group className="mb-3" controlId="ime_zivotinje">
             <Form.Label>Ime ili pasmina životinje</Form.Label>
-            <Form.Control type="text" name="ime_zivotinje" maxLength={50}/>
+            <Form.Control type="text" name="ime_zivotinje" maxLength={50} defaultValue={oglas.ime_zivotinje}/>
           </Form.Group>
         </Col>
         <Col>
           <Form.Group className="mb-3" controlId="dob_zivotinje">
             <Form.Label>Dob životinje</Form.Label>
-            <Form.Control type="text" name="dob_zivotinje" maxLength={50}/>
+            <Form.Control type="text" name="dob_zivotinje" maxLength={50} defaultValue={oglas.dob_zivotinje}/>
           </Form.Group>
         </Col>
       </Row>
-
       <Row>
         <Col>  
           <Form.Group className="mb-3" controlId="spol_zivotinje">
             <Form.Label>Spol životinje</Form.Label>
-            <Form.Control type="text" name="spol_zivotinje" maxLength={50} />
+            <Form.Control type="text" name="spol_zivotinje" maxLength={50} defaultValue={oglas.spol_zivotinje}/>
           </Form.Group>
         </Col>
         <Col>
           <Form.Group className="mb-3" controlId="kastriran">
             <Form.Label>Kastriran</Form.Label>
-            <Form.Control type="text" name="kastriran" maxLength={50} /> 
+            <Form.Control type="text" name="kastriran" maxLength={50} defaultValue={oglas.kastriran}/> 
           </Form.Group>
         </Col>
-      </Row>
-
-
+      </Row> 
       <Row className="mojredak">
         <Col></Col>
         <Col>
           <Link className="btn btn-danger gumb" to={`/oglasi`}>Odustani</Link>
         </Col>
         <Col>
-          <Button variant="primary" className="gumb" type="submit">Objavi oglas</Button>
+          <Button variant="primary" className="gumb" type="submit">Promijeni oglas</Button>
         </Col>
         <Col></Col>
       </Row>
       </Form>
       </div>
     </Container>
-    </div>
+    </div> 
     );
   }
 }

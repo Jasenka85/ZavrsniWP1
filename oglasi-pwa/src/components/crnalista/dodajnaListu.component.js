@@ -3,6 +3,7 @@ import ListaDataService from "../../services/crnalista.service";
 import KorisnikDataService from "../../services/korisnik.service";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 import users from '../../users.jpg';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -19,7 +20,7 @@ export default class DodajnaListu extends Component {
     this.dohvatiKorisnika = this.dohvatiKorisnika.bind(this);
     this.dodajnaListu = this.dodajnaListu.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { korisnik: {}, sifrakorisnika:0 };
+    this.state = { korisnik: {}, korisniksifra:0 };
   }
 
 
@@ -57,15 +58,7 @@ export default class DodajnaListu extends Component {
     }
     else
     { 
-      let poruke = '';
-      for (const key in odgovor.poruka.errors) 
-      {
-        if (odgovor.poruka.errors.hasOwnProperty(key)) 
-        {
-          poruke += `${odgovor.poruka.errors[key]}` + '\n'; 
-        }
-      }
-      alert(poruke);
+      console.log(odgovor);
     }
   }
 
@@ -94,16 +87,16 @@ export default class DodajnaListu extends Component {
       <Row>
         <Col> </Col>
         <Col>
-        <Card className="mojakartica" >
+        <Card className="mojakartica sredina" >
           <Card.Img variant="top" src={users} />
           <Card.Body>
             <Card.Title>{korisnik.ime} {korisnik.prezime}</Card.Title>
-            <Card.Text>
-            <p>{korisnik.email}</p>
-            <p>{korisnik.mobitel}</p>
-            <p>{korisnik.grad}</p>
-            </Card.Text>
           </Card.Body>
+          <ListGroup variant="flush">
+              <ListGroup.Item>{korisnik.email}</ListGroup.Item>
+              <ListGroup.Item>{korisnik.mobitel}</ListGroup.Item>
+              <ListGroup.Item>{korisnik.grad}</ListGroup.Item>
+          </ListGroup>
         </Card>
         </Col>
         <Col> </Col>

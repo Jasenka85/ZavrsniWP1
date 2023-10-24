@@ -32,7 +32,7 @@ async dohvatiOglase()
 
 async obrisiOglas(sifra){
     const odgovor = await OglasAdminDataService.delete(sifra);
-    if(odgovor.ok){  this.dohvatiOglase(); }
+    if(odgovor.ok){  window.location.href='/oglasi'; }
     else {	 alert(odgovor.poruka); }
     }
 

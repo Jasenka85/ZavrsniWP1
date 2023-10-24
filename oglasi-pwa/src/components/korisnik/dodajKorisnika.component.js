@@ -25,15 +25,7 @@ export default class DodajKorisnika extends Component {
     }
     else
     { 
-      let poruke = '';
-      for (const key in odgovor.poruka.errors) 
-      {
-        if (odgovor.poruka.errors.hasOwnProperty(key)) 
-        {
-          poruke += `${odgovor.poruka.errors[key]}` + '\n'; 
-        }
-      }
-      alert(poruke);
+      console.log(odgovor);
     }
   }
 

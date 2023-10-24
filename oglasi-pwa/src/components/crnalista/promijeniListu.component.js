@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ListaDataService from "../../services/crnalista.service";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 import users from '../../users.jpg';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -73,22 +74,22 @@ export default class PromijeniListu extends Component {
       <h3 className="mojnaslov">Promjena zapisa u crnoj listi</h3>
 
       <Row>
-        <Col> </Col>
+        <Col></Col>
         <Col>
-        <Card className="mojakartica" >
+        <Card className="mojakartica sredina" >
           <Card.Img variant="top" src={users} />
           <Card.Body>
             <Card.Title>{zapis.sifra_korisnika} {zapis.korisnik}</Card.Title>
-            <Card.Text>
-            <p>{zapis.email_korisnika}</p>
-            <p>{zapis.mobitel_korisnika}</p>
-            <p>{zapis.grad_korisnika}</p>
-            <p>{moment.utc(zapis.datum_blokiranja).format("DD.MM.YYYY.")}</p>
-            </Card.Text>
           </Card.Body>
+          <ListGroup variant="flush">
+              <ListGroup.Item>{zapis.email_korisnika}</ListGroup.Item>
+              <ListGroup.Item>{zapis.mobitel_korisnika}</ListGroup.Item>
+              <ListGroup.Item>{zapis.grad_korisnika}</ListGroup.Item>
+              <ListGroup.Item>{moment.utc(zapis.datum_blokiranja).format("DD.MM.YYYY.")}</ListGroup.Item>
+          </ListGroup> 
         </Card>
         </Col>
-        <Col> </Col>
+        <Col></Col>
         </Row>
       
 
@@ -102,14 +103,14 @@ export default class PromijeniListu extends Component {
       </Row>
 
       <Row className="mojredak">
-        <Col> </Col>
+        <Col></Col>
         <Col>
           <Link className="btn btn-danger gumb" to={`/crnalista`}>Odustani</Link>
         </Col>
         <Col>
           <Button variant="primary" className="gumb" type="submit">Promijeni zapis</Button>
         </Col>
-        <Col> </Col>
+        <Col></Col>
       </Row>
       </Form>
       </div>

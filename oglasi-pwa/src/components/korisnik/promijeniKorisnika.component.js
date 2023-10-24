@@ -27,7 +27,6 @@ export default class PromijeniKorisnika extends Component {
         this.setState({
           korisnik: response.data
         });
-       // console.log(response.data);
       })
       .catch(e => {
         console.log(e);

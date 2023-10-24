@@ -13,6 +13,15 @@ export default class Pocetna extends Component{
         <div className="mojdiv">
         <Container>
         <Row><h3 className="mojnaslov">Dobrodošli na portal oglasa!</h3></Row>
+
+        <div className="naslovna">
+        <Row>Ovdje možete oglasiti ljubimca koji traži novi dom ili se javiti kao 
+        potencijalni udomitelj. Ako ste zainteresirani za neku životinjicu iz oglasa, možete direktno 
+        kontaktirati vlasnika. Stranica je namijenjena isključivo poklanjanju i udomljavanju životinja, 
+        nikako njihovoj prodaji ili bilo kakvoj zamjeni!
+﻿      </Row>
+        </div>
+
         <Row>
         <Col>
         <Card className="mojznak" >

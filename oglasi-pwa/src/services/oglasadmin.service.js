@@ -3,9 +3,13 @@ import http from "../http-common";
 class OglasAdminDataService{
 
     
-  async get(){
-    return await http.get('/Oglasi');
-}
+    async get(){
+      return await http.get('/Oglasi');
+    }
+
+    async getBySifra(sifra) {
+      return await http.get('/Oglasi/' + sifra);
+    }
 
     async post(oglas){
         const odgovor = await http.post('/Oglasi', oglas)
@@ -26,9 +30,10 @@ class OglasAdminDataService{
          .catch(error => {
            return {ok:false, poruka: error.response.data}; 
          });
-   
          return odgovor;
        }
+
+
 
     async delete(sifra){
       const odgovor = await http.delete('/Oglasi/' + sifra)

@@ -25,25 +25,19 @@ export default class DodajOglas extends Component {
     }
     else
     { 
-      let poruke = '';
-      for (const key in odgovor.poruka.errors) 
-      {
-        if (odgovor.poruka.errors.hasOwnProperty(key)) 
-        {
-          poruke += `${odgovor.poruka.errors[key]}` + '\n'; 
-        }
-      }
-      alert(poruke);
+      console.log(odgovor);
     }
   }
 
   handleSubmit(e) 
   {
-    // Prevent the browser from reloading the page
+    
     e.preventDefault();
 
-    // Read the form data
     const podaci = new FormData(e.target);
+
+    var select = document.getElementById('kategorija');
+    var vrijednost = select.options[select.selectedIndex].value;
     
     this.dodajOglas({
       ime: podaci.get('ime'),
@@ -51,7 +45,7 @@ export default class DodajOglas extends Component {
       email: podaci.get('email'),
       mobitel: podaci.get('mobitel'),
       grad: podaci.get('grad'),
-      kategorija: this.state.kategorija,
+      kategorija: parseInt(vrijednost),
       naslov: podaci.get('naslov'),
       opis: podaci.get('opis'),
       vrsta_zivotinje: podaci.get('vrsta_zivotinje'),
@@ -176,15 +170,16 @@ export default class DodajOglas extends Component {
 
 
       <Row className="mojredak">
-        <Col> </Col>
+        <Col></Col>
         <Col>
           <Link className="btn btn-danger gumb" to={`/`}>Odustani</Link>
         </Col>
         <Col>
           <Button variant="primary" className="gumb" type="submit">Objavi oglas</Button>
         </Col>
-        <Col> </Col>
+        <Col></Col>
       </Row>
+      <Row className="mojredak">Oglas će biti vidljiv drugim korisnicima kada ga odobri administrator.</Row>
       </Form>
       </div>
     </Container>

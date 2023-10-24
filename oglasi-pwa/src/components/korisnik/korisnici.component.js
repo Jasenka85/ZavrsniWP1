@@ -32,7 +32,7 @@ async dohvatiKorisnike()
 
 async obrisiKorisnika(sifra){
 const odgovor = await KorisnikDataService.delete(sifra);
-if(odgovor.ok){  this.dohvatiKorisnike(); }
+if(odgovor.ok){  window.location.href='/korisnici'; }
 else {	 alert(odgovor.poruka); }
 }
 
