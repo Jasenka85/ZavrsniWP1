@@ -16,11 +16,17 @@ import OglasiKorisnika from './components/oglasi/oglasikorisnika.component';
 import PromijeniOglas from './components/oglasi/promijeniOglas.component';
 import Poklanjam from './components/oglasi/poklanjam.component';
 import Trazim from './components/oglasi/trazim.component';
+import PregledOglasa from './components/oglasi/pregledajOglas.component';
 import NoviOglas from './components/oglasi/dodajOglas.component';
 import NoviOglasAdmin from './components/oglasi/dodajOglasadmin.component';
 import DodajnaListu from './components/crnalista/dodajnaListu.component';
-import CrnaLista from './components/crnalista/crnalista.component'
-import PromijeniListu from './components/crnalista/promijeniListu.component'
+import CrnaLista from './components/crnalista/crnalista.component';
+import PromijeniListu from './components/crnalista/promijeniListu.component';
+import PosaljiPoruku from './components/poruke/posaljiporuku.component';
+import SvePoruke from './components/poruke/poruke.component';
+import ProcitajPoruku from './components/poruke/procitajporuku.component';
+import PorukeOglasa from './components/poruke/porukeoglas.component';
+import PorukeJednogOglasa from './components/poruke/procitajporukeoglas.component.js';
 
 export default function App() {
   return (
@@ -39,6 +45,7 @@ export default function App() {
         <Route path="/korisnici/uloga/:sifra" element={<PromijeniUlogu />} />
         <Route path="/oglasi" element={<SviOglasi />} />
         <Route path="/oglasi/:sifra" element={<PromijeniOglas />} />
+        <Route path="/oglasi/pregled/:sifra" element={<PregledOglasa />} />
         <Route path="/oglasi/poklanjam" element={<Poklanjam />} />
         <Route path="/oglasi/trazim" element={<Trazim />} />
         <Route path="/oglasi/novioglas" element={<NoviOglas />} />
@@ -46,6 +53,11 @@ export default function App() {
         <Route path="/crnalista/dodaj/:sifra" element={<DodajnaListu />} />
         <Route path="/crnalista" element={<CrnaLista />} />
         <Route path="/crnalista/:sifra" element={<PromijeniListu />} />
+        <Route path="/poruke" element={<SvePoruke />} />
+        <Route path="/poruke/oglas" element={<PorukeOglasa />} />
+        <Route path="/poruke/oglas/:sifra" element={<PorukeJednogOglasa />} />
+        <Route path="/poruke/:sifra" element={<ProcitajPoruku />} />
+        <Route path="/poruke/posalji/:sifra" element={<PosaljiPoruku />} />
       </Routes>
      
     </Router>

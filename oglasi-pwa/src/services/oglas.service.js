@@ -2,7 +2,10 @@ import http from "../http-common";
 
 class OglasDataService{
 
-    
+  async GetCijeliBySifra(sifra) {
+    return await http.get('/Oglasi/CijeliOglas/' + sifra);
+  }
+
     async post(oglas){
         const odgovor = await http.post('/Oglasi/CijeliOglas', oglas)
            .then(response => {

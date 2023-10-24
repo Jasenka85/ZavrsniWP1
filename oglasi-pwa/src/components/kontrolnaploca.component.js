@@ -40,8 +40,9 @@ export default class KontrolnaPloca extends Component{
           </Card.Body>
           <ListGroup className="list-group-flush">
             <ListGroup.Item><Card.Link href="/oglasi">Pregled oglasa</Card.Link></ListGroup.Item>
-            <ListGroup.Item><Card.Link href="/oglasi/novioglasadmin">Novi oglas od korisnika</Card.Link></ListGroup.Item>
             <ListGroup.Item><Card.Link href="/korisnici/oglasi">Svi oglasi od korisnika</Card.Link></ListGroup.Item>
+            <ListGroup.Item><Card.Link href="/oglasi/novioglasadmin">Novi oglas od korisnika</Card.Link></ListGroup.Item>
+            
             
           </ListGroup>
           
@@ -55,7 +56,8 @@ export default class KontrolnaPloca extends Component{
             <Card.Title className="sredina">Poruke i fotografije</Card.Title>
           </Card.Body>
           <ListGroup className="list-group-flush">
-            <ListGroup.Item><Card.Link href="#">Pregled poruka</Card.Link></ListGroup.Item>
+            <ListGroup.Item><Card.Link href="/poruke">Pregled poruka</Card.Link></ListGroup.Item>
+            <ListGroup.Item><Card.Link href="/poruke/oglas">Sve poruke za oglas</Card.Link></ListGroup.Item>
             <ListGroup.Item><Card.Link href="#">Pregled fotografija</Card.Link></ListGroup.Item>
           </ListGroup>
           

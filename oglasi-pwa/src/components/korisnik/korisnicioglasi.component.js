@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import {FaClipboardList} from "react-icons/fa";
 
 
-export default class Korisnici extends Component{
+export default class KorisniciOglasi extends Component{
 
 constructor(props)
 {
@@ -42,12 +42,12 @@ render(){
     <div className="mojdiv">
      <Container>
          
-        <h3 className="mojnaslov">Pregled korisnika</h3>
+        <h3 className="mojnaslov">Pregledaj oglase korisnika</h3>
             
         <Table striped bordered hover responsive>
          <thead>
           <tr>
-          <th>Šifra</th> <th>Uloga</th> <th>Ime i prezime</th> <th>E-mail</th> <th>Broj mobitela</th> <th>Grad</th> <th> </th>
+          <th>Šifra</th> <th>Uloga</th> <th>Ime i prezime</th> <th>E-mail</th> <th> </th>
           </tr>
          </thead>
          <tbody>
@@ -58,8 +58,6 @@ render(){
               <td>{korisnik.nazivUloge}</td>
               <td>{korisnik.ime} {korisnik.prezime}</td>
               <td>{korisnik.email}</td>
-              <td>{korisnik.mobitel}</td>
-              <td>{korisnik.grad}</td>
               <td>
                 <Link className="btn btn-primary gumb"
                       to={`/korisnici/oglasi/${korisnik.sifra}`}><FaClipboardList/>

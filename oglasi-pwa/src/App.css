@@ -50,6 +50,16 @@
   padding-bottom: 20px;
 }
 
+
+.mojznak
+{
+  font-size: 18px;
+  max-width: 250px;
+  margin-left: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
 .mojakartica
 {
   width: 250px;
@@ -57,6 +67,23 @@
   margin-bottom: 40px;
 }
 
+.karticaoglas
+{
+  width: 400px;
+  margin-left: 20px;
+}
+
+.fotografijaoglas
+{
+  width: 400px;
+  margin-left: 20px;
+}
+
+.karticaporuka
+{
+  width: 600px;
+
+}
 .mojlink
 {
 font-weight: bold;
@@ -69,7 +96,10 @@ text-decoration: none;
   margin-bottom: 40px;
 }
 
-
+.redakoglas
+{
+  margin-bottom: 40px;
+}
 
 .podnaslov
 {
@@ -80,22 +110,10 @@ text-decoration: none;
   margin-left: 0px;
 }
 
-.mojznak
-{
-  font-size: 18px;
-  width: 250px;
-  margin-left: 20px;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
 .fotkaoglas
 {
-width: 150px;
+max-width: 150px;
 }
-
-
-
 
 .mojdiv
 {
