@@ -58,7 +58,7 @@ export default class KontrolnaPloca extends Component{
           <ListGroup className="list-group-flush">
             <ListGroup.Item><Card.Link href="/poruke">Pregled poruka</Card.Link></ListGroup.Item>
             <ListGroup.Item><Card.Link href="/poruke/oglas">Sve poruke za oglas</Card.Link></ListGroup.Item>
-            <ListGroup.Item><Card.Link href="#">Pregled fotografija</Card.Link></ListGroup.Item>
+            <ListGroup.Item><Card.Link href="/fotografije">Pregled fotografija</Card.Link></ListGroup.Item>
           </ListGroup>
           
         </Card>
