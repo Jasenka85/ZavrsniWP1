@@ -13,11 +13,10 @@ class KorisnikDataService{
 
     async delete(sifra){
         const odgovor = await http.delete('/Korisnik/' + sifra)
-        .then(response => {
-            return {ok: true, poruka: 'Korisnik uspješno obrisan'};
-        })
+        .then(response => {return {ok:true, poruka: 'Korisnik uspješno obrisan'};})
         .catch(e=>{
-            return {ok: false, poruka: e.response.data};
+          console.log(e);
+          return {ok:false, poruka: e.response.data};
         });
         return odgovor;
     }

@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from "react-router-dom";
-import nemafoto from '../nemafoto.jpg';
 import moment from 'moment';
 
 export default class PregledajOglas extends Component {
@@ -50,7 +49,7 @@ export default class PregledajOglas extends Component {
         <Row className="redakoglas">
         <Col>
         <Card className="fotografijaoglas" >
-            <Card.Img variant="top" src={nemafoto} />
+            <Card.Img variant="top" src={oglas.slika} />
           <Card.Body>
           <ListGroup variant="flush">
           

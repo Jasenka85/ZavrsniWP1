@@ -3,7 +3,6 @@ import PoklanjamDataService from "../../services/poklanjam.service";
 import { Container, Table } from "react-bootstrap";
 import moment from 'moment';
 import Image from 'react-bootstrap/Image';
-import nemafoto from '../nemafoto.jpg';
 import { Link } from "react-router-dom";
 
 export default class Poklanjam extends Component{
@@ -51,7 +50,7 @@ render(){
          {
             poklanjam && poklanjam.length>0 && poklanjam.map((oglas,index)=>(
             <tr key={index}>
-              <td><Image src={nemafoto} className="fotkaoglas" /></td>
+              <td><Image src={oglas.slika} className="fotkaoglas" /></td>
               <td><Link to={`/oglasi/pregled/${oglas.sifraOglasa}`}>{oglas.naslov}</Link></td> 
               <td>{oglas.vrsta_zivotinje}</td>
               <td>{oglas.grad}</td>

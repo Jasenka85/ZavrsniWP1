@@ -53,12 +53,11 @@ export default class KontrolnaPloca extends Component{
         <Card className="mojakartica">
           <Card.Img variant="top" src={imail} />
           <Card.Body>
-            <Card.Title className="sredina">Poruke i fotografije</Card.Title>
+            <Card.Title className="sredina">Poruke</Card.Title>
           </Card.Body>
           <ListGroup className="list-group-flush">
             <ListGroup.Item><Card.Link href="/poruke">Pregled poruka</Card.Link></ListGroup.Item>
             <ListGroup.Item><Card.Link href="/poruke/oglas">Sve poruke za oglas</Card.Link></ListGroup.Item>
-            <ListGroup.Item><Card.Link href="/fotografije">Pregled fotografija</Card.Link></ListGroup.Item>
           </ListGroup>
           
         </Card>

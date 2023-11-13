@@ -6,22 +6,26 @@ class OglasDataService{
     return await http.get('/Oglasi/CijeliOglas/' + sifra);
   }
 
-    async post(oglas){
+  async post(oglas)
+  {
         const odgovor = await http.post('/Oglasi/CijeliOglas', oglas)
            .then(response => {
              return {ok:true, poruka: 'Oglas uspješno unesen.'}; 
            })
            .catch(error => {
+             console.log(error.response);
              return {ok:false, poruka: error.response.data}; 
            });
            return odgovor;
-    }
+  }
 
-    async OglasiKorisnika(sifra) {
+  async OglasiKorisnika(sifra) 
+  {
       return await http.get('/Oglasi/Korisnik/' + sifra);
-    }
+  }
 
-    async delete(sifra){
+  async delete(sifra)
+  {
       const odgovor = await http.delete('/Oglasi/' + sifra)
       .then(response => {
           return {ok: true, poruka: 'Oglas uspješno obrisan'};
@@ -31,6 +35,8 @@ class OglasDataService{
       });
       return odgovor;
   }
+
+  
 
 }
 

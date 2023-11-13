@@ -6,6 +6,10 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
+import { Image, Modal } from 'react-bootstrap';
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
+
 
 export default class DodajOglas extends Component {
 
@@ -14,19 +18,24 @@ export default class DodajOglas extends Component {
     super(props);
     this.dodajOglas = this.dodajOglas.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {prikaziModal: false, trenutnaSlika: "/slike/nemaslike.png"};
+
   }
 
+
+  otvoriModal = () => this.setState({ prikaziModal: true });
+  zatvoriModal= () => {
+    this.setState({ prikaziModal: false });
+    window.location.href='/';
+  }
+  
   async dodajOglas(oglas) 
   {
     const odgovor = await OglasDataService.post(oglas);
-    if(odgovor.ok)
-    {
-      window.location.href='/';
-    }
-    else
-    { 
-      console.log(odgovor);
-    }
+    if(odgovor.ok) 
+    { this.otvoriModal(); }
+    else 
+    { console.log(odgovor); }
   }
 
   handleSubmit(e) 
@@ -39,6 +48,11 @@ export default class DodajOglas extends Component {
     var select = document.getElementById('kategorija');
     var vrijednost = select.options[select.selectedIndex].value;
     
+    const { trenutnaSlika} = this.state;
+    var base64 = trenutnaSlika;
+    if(base64 !== "/slike/nemaslike.png")
+    { base64 = base64.replace('data:image/png;base64,', '');}
+
     this.dodajOglas({
       ime: podaci.get('ime'),
       prezime: podaci.get('prezime'),
@@ -52,11 +66,49 @@ export default class DodajOglas extends Component {
       ime_zivotinje: podaci.get('ime_zivotinje'),
       spol_zivotinje: podaci.get('spol_zivotinje'),
       dob_zivotinje: podaci.get('dob_zivotinje'),
-      kastriran: podaci.get('kastriran')
+      kastriran: podaci.get('kastriran'),
+      slika: base64
     });
   }
 
-  render() { 
+
+  _crop() {
+    this.setState({
+     slikaZaServer: this.cropper.getCroppedCanvas().toDataURL()
+   });
+ }
+
+ onCropperInit(cropper) {
+     this.cropper = cropper;
+ }
+
+ onChange = (e) => {
+   e.preventDefault();
+   let files;
+   if (e.dataTransfer) { files = e.dataTransfer.files; } 
+   else if (e.target) { files = e.target.files; }
+   const reader = new FileReader();
+   reader.onload = () => {
+     this.setState({
+       image: reader.result
+     });
+   };
+   try { reader.readAsDataURL(files[0]);} 
+   catch (error) {  }
+ }
+
+ spremiSlikuAkcija = () =>{
+   const { slikaZaServer} = this.state;
+   this.setState({ trenutnaSlika: slikaZaServer }); 
+ };
+
+
+  render() 
+  {
+    const { image} = this.state;
+    const { slikaZaServer} = this.state;
+    const { trenutnaSlika} = this.state;
+
     return (
       <div className="mojdiv">
       <Container>
@@ -168,6 +220,41 @@ export default class DodajOglas extends Component {
         </Col>
       </Row>
 
+      <Row>
+              <Col key="1">
+                Trenutna slika<br />
+                <Image src={trenutnaSlika} className="slika" fluid />
+                </Col>
+                <Col key="2">
+                  Nova slika<br />
+                <Image src={slikaZaServer} className="slika" fluid />
+                </Col>
+      </Row>
+      <Row>
+        <Col>
+      <input type="file" onChange={this.onChange} />
+      </Col>
+      <Col>
+      <input type="button" onClick={this.spremiSlikuAkcija} value={"Spremi sliku"} />
+      </Col>
+      </Row>
+      <Row>
+                <Cropper
+                    src={image}
+                    style={{ height: 400, width: "100%" }}
+                    initialAspectRatio={1}
+                    guides={true}
+                    viewMode={1}
+                    minCropBoxWidth={50}
+                    minCropBoxHeight={50}
+                    cropBoxResizable={false}
+                    background={false}
+                    responsive={true}
+                    checkOrientation={false} 
+                    crop={this._crop.bind(this)}
+                    onInitialized={this.onCropperInit.bind(this)}
+                />
+      </Row>
 
       <Row className="mojredak">
         <Col></Col>
@@ -179,9 +266,20 @@ export default class DodajOglas extends Component {
         </Col>
         <Col></Col>
       </Row>
-      <Row className="mojredak">Oglas će biti vidljiv drugim korisnicima kada ga odobri administrator.</Row>
+      <Row className="mojredak">Oglas će biti vidljiv drugim korisnicima kada ga pregleda i odobri administrator.</Row>
       </Form>
       </div>
+
+      <Modal show={this.state.prikaziModal} onHide={this.zatvoriModal}>
+         <Modal.Header closeButton>
+            <Modal.Title>Oglas je zaprimljen!</Modal.Title>
+         </Modal.Header>
+         <Modal.Body>Bit će objavljen kada ga odobri administrator.</Modal.Body>
+         <Modal.Footer>
+            <Button variant="secondary" onClick={this.zatvoriModal}>Zatvori</Button>
+         </Modal.Footer>
+       </Modal>
+
     </Container>
     </div>
     );

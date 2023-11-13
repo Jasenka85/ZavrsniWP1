@@ -3,15 +3,20 @@ import KorisnikDataService from "../../services/korisnik.service";
 import { Button, Container, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {FaEdit,FaTrash} from "react-icons/fa";
-
+import { Modal } from 'react-bootstrap';
 
 export default class Korisnici extends Component{
 
 constructor(props)
 {
     super(props);
-    this.state = { korisnici:[] };
+    this.dohvatiKorisnike = this.dohvatiKorisnike.bind(this);
+    this.state = { prikaziModal: false, korisnici:[] };
 }
+
+
+otvoriModal = () => this.setState({ prikaziModal: true });
+zatvoriModal = () => this.setState({ prikaziModal: false });
 
 componentDidMount()
 {
@@ -32,8 +37,8 @@ async dohvatiKorisnike()
 
 async obrisiKorisnika(sifra){
 const odgovor = await KorisnikDataService.delete(sifra);
-if(odgovor.ok){  window.location.href='/korisnici'; }
-else {	 alert(odgovor.poruka); }
+if(odgovor.ok){window.location.href='/korisnici';}
+else{this.otvoriModal();}
 }
 
 render(){
@@ -73,6 +78,16 @@ render(){
          ))}
          </tbody>
       </Table>
+
+      <Modal show={this.state.prikaziModal} onHide={this.zatvoriModal}>
+         <Modal.Header closeButton>
+            <Modal.Title>Greška prilikom brisanja!</Modal.Title>
+         </Modal.Header>
+         <Modal.Body>Korisnik se ne može obrisati jer ima oglas.</Modal.Body>
+         <Modal.Footer>
+            <Button variant="secondary" onClick={this.zatvoriModal}>Zatvori</Button>
+         </Modal.Footer>
+       </Modal>
   </Container>
   </div>
         );

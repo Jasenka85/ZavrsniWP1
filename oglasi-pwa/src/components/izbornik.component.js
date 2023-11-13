@@ -25,7 +25,6 @@ export default class Izbornik extends Component{
     <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="me-auto">
       <Nav.Link href="/kontrolnaploca">Kontrolna ploča</Nav.Link>
-      <Nav.Link href="https://jasenka85-001-site1.etempurl.com/swagger/index.html" target="_blank">Swagger</Nav.Link>
     </Nav>
     </Navbar.Collapse>
     </Navbar>

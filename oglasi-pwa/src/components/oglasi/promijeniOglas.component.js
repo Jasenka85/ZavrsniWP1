@@ -7,6 +7,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from "react-router-dom";
+import {Image} from 'react-bootstrap';
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
 
 export default class PromijeniOglas extends Component {
 
@@ -15,7 +18,7 @@ export default class PromijeniOglas extends Component {
     this.oglas = this.dohvatiOglas();
     this.promijeniOglas = this.promijeniOglas.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { oglas: {} };
+    this.state = { oglas: {}, trenutnaSlika: "", novaSlika: "" };
   }
 
   async dohvatiOglas() {
@@ -24,40 +27,34 @@ export default class PromijeniOglas extends Component {
     await OglasAdminDataService.getBySifra(niz[niz.length-1])
       .then(response => {
         this.setState({
-          oglas: response.data
+          oglas: response.data,
+          trenutnaSlika: response.data.slika
         });
       })
-      .catch(e => {
-        console.log(e);
-      });
+      .catch(e => { console.log(e); });
   }
 
   async promijeniOglas(oglas) {
-    // ovo mora bolje
     let href = window.location.href;
     let niz = href.split('/'); 
     const odgovor = await OglasAdminDataService.put(niz[niz.length-1],oglas);
-    if(odgovor.ok)
-    {
-      window.location.href='/oglasi';
-    }
-    else
-    {
-      console.log(odgovor);
-    }
+    if(odgovor.ok) { window.location.href='/oglasi'; }
+    else { console.log(odgovor); }
   }
-
 
   handleSubmit(e) 
   {
-    // Prevent the browser from reloading the page
     e.preventDefault();
 
-    // Read the form data
     const podaci = new FormData(e.target);
     
     var select = document.getElementById('kategorija');
     var vrijednost = select.options[select.selectedIndex].value;
+
+    const { novaSlika} = this.state;
+    var base64 = novaSlika;
+    if(base64 !== "")
+    { base64 = base64.replace('data:image/png;base64,', '');}
 
     this.promijeniOglas({
       aktivan: podaci.get('aktivan')==='on' ? true : false,
@@ -68,16 +65,52 @@ export default class PromijeniOglas extends Component {
       ime_zivotinje: podaci.get('ime_zivotinje'),
       spol_zivotinje: podaci.get('spol_zivotinje'),
       dob_zivotinje: podaci.get('dob_zivotinje'),
-      kastriran: podaci.get('kastriran')
+      kastriran: podaci.get('kastriran'),
+      slika: base64
     });
   }
 
   
+  _crop() {
+    this.setState({
+     slikaZaServer: this.cropper.getCroppedCanvas().toDataURL()
+   });
+ }
+
+ onCropperInit(cropper) {
+     this.cropper = cropper;
+ }
+
+ onChange = (e) => {
+   e.preventDefault();
+   let files;
+   if (e.dataTransfer) { files = e.dataTransfer.files; } 
+   else if (e.target) { files = e.target.files; }
+   const reader = new FileReader();
+   reader.onload = () => {
+     this.setState({
+       image: reader.result
+     });
+   };
+   try { reader.readAsDataURL(files[0]);} 
+   catch (error) {  }
+ }
+
+ spremiSlikuAkcija = () =>{
+   const { slikaZaServer} = this.state;
+   this.setState({ novaSlika: slikaZaServer }); 
+ };
+
+
+
 
   render() {
     
    const {oglas} = this.state;
-   
+   const { image} = this.state;
+    const { slikaZaServer} = this.state;
+    const { trenutnaSlika} = this.state;
+
    return (
     <div className="mojdiv">
     <Container>
@@ -168,6 +201,44 @@ export default class PromijeniOglas extends Component {
           </Form.Group>
         </Col>
       </Row> 
+
+      <Row>
+              <Col key="1">
+                Trenutna slika<br />
+                <Image src={trenutnaSlika} className="slika" fluid />
+                </Col>
+                <Col key="2">
+                  Nova slika<br />
+                <Image src={slikaZaServer} className="slika" fluid />
+                </Col>
+      </Row>
+      <Row>
+        <Col>
+      <input type="file" onChange={this.onChange}  />
+      </Col>
+      <Col>
+      <input type="button" onClick={this.spremiSlikuAkcija} value={"Spremi sliku"}  />
+      </Col>
+      </Row>
+      <Row>
+                <Cropper
+                    src={image}
+                    style={{ height: 400, width: "100%" }}
+                    initialAspectRatio={1}
+                    guides={true}
+                    viewMode={1}
+                    minCropBoxWidth={50}
+                    minCropBoxHeight={50}
+                    cropBoxResizable={false}
+                    background={false}
+                    responsive={true}
+                    checkOrientation={false} 
+                    crop={this._crop.bind(this)}
+                    onInitialized={this.onCropperInit.bind(this)}
+                />
+      </Row>
+
+
       <Row className="mojredak">
         <Col></Col>
         <Col>

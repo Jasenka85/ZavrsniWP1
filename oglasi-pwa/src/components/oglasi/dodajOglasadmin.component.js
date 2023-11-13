@@ -5,7 +5,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {Image} from 'react-bootstrap';
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
 
 export default class DodajOglasAdmin extends Component {
 
@@ -14,32 +17,32 @@ export default class DodajOglasAdmin extends Component {
     super(props);
     this.dodajOglasAdmin = this.dodajOglasAdmin.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {trenutnaSlika: "/slike/nemaslike.png"};
   }
 
   async dodajOglasAdmin(oglas) 
   {
     const odgovor = await OglasAdminDataService.post(oglas);
     if(odgovor.ok)
-    {
-      window.location.href='/oglasi';
-    }
+    { window.location.href='/oglasi'; }
     else
-    { 
-      console.log(odgovor);
-    }
+    { console.log(odgovor); }
   }
 
   handleSubmit(e) 
   {
-    // Prevent the browser from reloading the page
     e.preventDefault();
 
-    // Read the form data
     const podaci = new FormData(e.target);
 
     var select = document.getElementById('kategorija');
     var vrijednost = select.options[select.selectedIndex].value;
     
+    const { trenutnaSlika} = this.state;
+    var base64 = trenutnaSlika;
+    if(base64 !== "/slike/nemaslike.png")
+    { base64 = base64.replace('data:image/png;base64,', '');}
+
     this.dodajOglasAdmin({
       sifra_korisnika: parseInt(podaci.get('sifra_korisnika')),
       kategorija: parseInt(vrijednost),
@@ -49,12 +52,49 @@ export default class DodajOglasAdmin extends Component {
       ime_zivotinje: podaci.get('ime_zivotinje'),
       spol_zivotinje: podaci.get('spol_zivotinje'),
       dob_zivotinje: podaci.get('dob_zivotinje'),
-      kastriran: podaci.get('kastriran')
+      kastriran: podaci.get('kastriran'),
+      slika: base64
     });
   }
 
+  _crop() {
+    this.setState({
+     slikaZaServer: this.cropper.getCroppedCanvas().toDataURL()
+   });
+ }
+
+ onCropperInit(cropper) {
+     this.cropper = cropper;
+ }
+
+ onChange = (e) => {
+   e.preventDefault();
+   let files;
+   if (e.dataTransfer) { files = e.dataTransfer.files; } 
+   else if (e.target) { files = e.target.files; }
+   const reader = new FileReader();
+   reader.onload = () => {
+     this.setState({
+       image: reader.result
+     });
+   };
+   try { reader.readAsDataURL(files[0]);} 
+   catch (error) {  }
+ }
+
+ spremiSlikuAkcija = () =>{
+   const { slikaZaServer} = this.state;
+   this.setState({ trenutnaSlika: slikaZaServer }); 
+ };
+
+
+
   render() { 
     
+    const { image} = this.state;
+    const { slikaZaServer} = this.state;
+    const { trenutnaSlika} = this.state;
+
     return (
       <div className="mojdiv">
       <Container>
@@ -132,6 +172,41 @@ export default class DodajOglasAdmin extends Component {
         </Col>
       </Row>
 
+      <Row>
+              <Col key="1">
+                Trenutna slika<br />
+                <Image src={trenutnaSlika} className="slika" fluid />
+                </Col>
+                <Col key="2">
+                  Nova slika<br />
+                <Image src={slikaZaServer} className="slika" fluid />
+                </Col>
+      </Row>
+      <Row>
+        <Col>
+      <input type="file" onChange={this.onChange}  />
+      </Col>
+      <Col>
+      <input type="button" onClick={this.spremiSlikuAkcija} value={"Spremi sliku"} />
+      </Col>
+      </Row>
+      <Row>
+                <Cropper
+                    src={image}
+                    style={{ height: 400, width: "100%" }}
+                    initialAspectRatio={1}
+                    guides={true}
+                    viewMode={1}
+                    minCropBoxWidth={50}
+                    minCropBoxHeight={50}
+                    cropBoxResizable={false}
+                    background={false}
+                    responsive={true}
+                    checkOrientation={false} 
+                    crop={this._crop.bind(this)}
+                    onInitialized={this.onCropperInit.bind(this)}
+                />
+      </Row>
 
       <Row className="mojredak">
         <Col></Col>
