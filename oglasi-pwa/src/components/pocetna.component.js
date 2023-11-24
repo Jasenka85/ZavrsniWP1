@@ -19,7 +19,7 @@ export default class Pocetna extends Component{
         potencijalni udomitelj. Ako ste zainteresirani za neku životinjicu iz oglasa, možete direktno 
         kontaktirati vlasnika. Stranica je namijenjena isključivo poklanjanju i udomljavanju životinja, 
         nikako njihovoj prodaji ili bilo kakvoj zamjeni!
-﻿      </Row>
+        </Row>
         </div>
 
         <Row>

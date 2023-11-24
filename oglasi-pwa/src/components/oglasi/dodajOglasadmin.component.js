@@ -15,6 +15,10 @@ export default class DodajOglasAdmin extends Component {
   constructor(props) 
   {
     super(props);
+    const token = localStorage.getItem('Bearer');
+    if(token==null || token===''){
+      window.location.href='/';
+    }
     this.dodajOglasAdmin = this.dodajOglasAdmin.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {trenutnaSlika: "/slike/nemaslike.png"};

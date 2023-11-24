@@ -15,6 +15,10 @@ export default class PromijeniListu extends Component {
 
   constructor(props) {
     super(props);
+    const token = localStorage.getItem('Bearer');
+    if(token==null || token===''){
+      window.location.href='/';
+    }
     this.zapis = this.dohvatiZapis();
     this.promijeniZapis = this.promijeniZapis.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

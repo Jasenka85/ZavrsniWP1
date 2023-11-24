@@ -10,6 +10,10 @@ export default class UlogaKorisnika extends Component{
 constructor(props)
 {
     super(props);
+    const token = localStorage.getItem('Bearer');
+    if(token==null || token===''){
+      window.location.href='/';
+    }
     this.state = { korisnici:[] };
 }
 

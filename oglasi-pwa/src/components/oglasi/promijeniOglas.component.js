@@ -15,6 +15,10 @@ export default class PromijeniOglas extends Component {
 
   constructor(props) {
     super(props);
+    const token = localStorage.getItem('Bearer');
+    if(token==null || token===''){
+      window.location.href='/';
+    }
     this.oglas = this.dohvatiOglas();
     this.promijeniOglas = this.promijeniOglas.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -98,7 +102,7 @@ export default class PromijeniOglas extends Component {
 
  spremiSlikuAkcija = () =>{
    const { slikaZaServer} = this.state;
-   this.setState({ novaSlika: slikaZaServer }); 
+   this.setState({ novaSlika: slikaZaServer, trenutnaSlika: slikaZaServer }); 
  };
 
 

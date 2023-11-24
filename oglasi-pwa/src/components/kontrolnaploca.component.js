@@ -9,6 +9,15 @@ import listing from '../oglas.png';
 import imail from '../poruka.png';
 
 export default class KontrolnaPloca extends Component{
+  
+  constructor(props) {
+    super(props);
+    const token = localStorage.getItem('Bearer');
+    if(token==null || token===''){
+      window.location.href='/';
+    }
+  }
+
   render(){
   return (
     <div className="mojdiv">

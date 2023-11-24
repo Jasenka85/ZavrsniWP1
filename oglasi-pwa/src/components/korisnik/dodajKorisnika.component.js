@@ -12,6 +12,10 @@ export default class DodajKorisnika extends Component {
   constructor(props) 
   {
     super(props);
+    const token = localStorage.getItem('Bearer');
+    if(token==null || token===''){
+      window.location.href='/';
+    }
     this.dodajKorisnika = this.dodajKorisnika.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }

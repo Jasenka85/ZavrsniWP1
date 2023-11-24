@@ -1,4 +1,5 @@
-﻿use master;
+﻿
+use master;
 drop database if exists Oglasi_zivotinje;
 go
 create database Oglasi_zivotinje collate Croatian_CI_AS;
@@ -12,7 +13,6 @@ create table korisnik
 	ime varchar(30) not null,
 	prezime varchar(50) not null,
 	email varchar(50) not null,
-	lozinka varchar(30),  -- ne moraju se svi registrirati i imati lozinku
 	mobitel varchar(20),
 	grad varchar(30)
 )
@@ -33,13 +33,6 @@ create table oglas
 	kastriran varchar(50)  -- moze npr. upisati da je muzjak kastriran, a zenka nije
 )
 
-create table fotografija
-(
-	sifra int not null primary key identity(1,1),
-	oglas int not null,    -- vanjski ključ, jedan oglas može imati više fotografija
-	naziv varchar(50) not null,
-	link varchar(100) not null
-)
 
 create table crna_lista
 (
@@ -48,10 +41,6 @@ create table crna_lista
 	razlog_blokiranja varchar(500) not null,
 	datum_blokiranja datetime not null
 )
-
-
-
-
 
 create table poruka
 (
@@ -63,23 +52,28 @@ create table poruka
 	datum_poruke datetime not null
 )
 
+create table administrator
+(
+sifra int not null primary key identity(1,1),
+email varchar(50) not null,
+lozinka varchar(200) not null
+);
+
 alter table oglas add foreign key (korisnik) references korisnik(sifra);
 
 alter table crna_lista add foreign key (korisnik) references korisnik(sifra);
 
 alter table poruka add foreign key (oglas) references oglas(sifra);
 
-alter table fotografija add foreign key (oglas) references oglas(sifra);
 
-
-insert into korisnik (uloga, ime, prezime, email, lozinka, mobitel, grad)
+insert into korisnik (uloga, ime, prezime, email, mobitel, grad)
 values 
-(1,'Sanja','Habuš','shabus@gmail.com','Zoki123','092 146 3753','Zaprešić'),
-(1,'Jasenka','Augustinović','jaugustinovic@gmail.com','Bruno123','091 543 6424','Osijek'),
-(2,'Ana','Marasović','amarasovic@gmail.com','Ivan123','099 234 4422','Zagreb'),
-(2,'Maja','Grgić','mgrgic@gmail.com','Josip123','095 632 7455','Sesvete'),
-(0,'Ivana','Banić','ibanic@gmail.com',null,'091 555 7654','Našice'),
-(0,'Adriana','Popović','apopovic@gmail.com',null,'098 323 7532','Tenja');
+(1,'Sanja','Misić','miska@gmail.com','092 146 3753','Zaprešić'),
+(1,'Jasna','Vidić','vidovita@gmail.com','091 543 6424','Osijek'),
+(2,'Ana','Kristek','kiki@gmail.com','099 234 4422','Zagreb'),
+(2,'Maja','Grgur','grga@gmail.com','095 632 7455','Sesvete'),
+(0,'Ivana','Ban','iban@gmail.com','091 555 7654','Našice'),
+(0,'Adriana','Pop','besposlenpop@gmail.com','098 323 7532','Tenja');
 
 
 
@@ -92,13 +86,6 @@ values
 (1,6,2,'2023-05-23 12:42:15','Sheldon traži društvo!','Tražimo mužjaka kako Sheldon više ne bi bio sam. Ima 1 godinu.','zamorčić','dugodlaki','mužjak','do 1 godinu','nije važno'),
 (1,5,2,'2023-06-08 17:12:37','Tražim činčilu!','Želim udomiti činčilu, po mogućnosti mladog mužjaka.','činčila','dugorepa','nije važno','do 2 godine','nije važno'),
 (1,4,2,'2023-06-13 14:55:18','Želim udomiti hrčka','Želim udomiti bebu hrčka, po mogućnosti sirijskog, ali može i ruski.','hrčak','sirijski','nije važno','do 3 mjeseca','ne');
-
-
-insert into fotografija (oglas, naziv, link)
-values
-(1,'Leona','https://i.postimg.cc/N0zqmfMj/Leona.jpg'),
-(2,'Dixie','https://i.postimg.cc/mrRGB6nT/Dixie.jpg'),
-(3,'Mambo','https://i.postimg.cc/dtvX7TB9/Mambo.jpg');
 
 
 insert into poruka (oglas, ime_posiljatelja, email_posiljatelja, tekst_poruke, datum_poruke)
@@ -114,3 +101,9 @@ insert into crna_lista (korisnik, razlog_blokiranja, datum_blokiranja)
 values
 (5, 'uzgajivač', '2023-07-20 12:50:44'),
 (6, 'skupljač', '2023-09-20 12:50:44');
+
+
+insert into administrator (email, lozinka)
+values 
+('tjakopec@gmail.com', '$2a$13$JpDMSmBb5sbGnwDOnsacceDwXBBDDJTZ4bsXlO7DA9sHbIXziu76G'),
+('oglasi@mrkvica.hr', '$2a$12$7iBdM1OQW5OCnFjtGduwMOZ74RvUpksxurRq.HIeIdeh40e183De.');

@@ -14,6 +14,10 @@ export default class PromjenaUloge extends Component {
 
   constructor(props) {
     super(props);
+    const token = localStorage.getItem('Bearer');
+    if(token==null || token===''){
+      window.location.href='/';
+    }
     this.korisnik = this.dohvatiKorisnika();
     this.promijeniUlogu = this.promijeniUlogu.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

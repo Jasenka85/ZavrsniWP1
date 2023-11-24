@@ -17,6 +17,10 @@ export default class DodajnaListu extends Component {
   constructor(props) 
   {
     super(props);
+    const token = localStorage.getItem('Bearer');
+    if(token==null || token===''){
+      window.location.href='/';
+    }
     this.dohvatiKorisnika = this.dohvatiKorisnika.bind(this);
     this.dodajnaListu = this.dodajnaListu.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

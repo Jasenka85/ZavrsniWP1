@@ -27,6 +27,8 @@ import SvePoruke from './components/poruke/poruke.component';
 import ProcitajPoruku from './components/poruke/procitajporuku.component';
 import PorukeOglasa from './components/poruke/porukeoglas.component';
 import PorukeJednogOglasa from './components/poruke/procitajporukeoglas.component';
+import Login from './components/login.component';
+import Odjava from './components/odjava.component';
 
 export default function App() {
   return (
@@ -58,6 +60,8 @@ export default function App() {
         <Route path="/poruke/oglas/:sifra" element={<PorukeJednogOglasa />} />
         <Route path="/poruke/:sifra" element={<ProcitajPoruku />} />
         <Route path="/poruke/posalji/:sifra" element={<PosaljiPoruku />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/odjava" element={<Odjava />} />  
       </Routes>
      
     </Router>

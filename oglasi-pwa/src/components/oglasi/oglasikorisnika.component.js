@@ -9,7 +9,11 @@ import moment from 'moment';
 export default class OglasiKorisnika extends Component{
 
     constructor(props) {
-        super(props);
+      super(props);
+      const token = localStorage.getItem('Bearer');
+      if(token==null || token===''){
+        window.location.href='/';
+      }
         this.dohvatiOglase = this.dohvatiOglase.bind(this);
         this.state = { oglasi: [] };
       }
