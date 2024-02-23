@@ -60,6 +60,7 @@
   margin-left: 20px;
   margin-bottom: 40px;
   text-align: center;
+  align-items: center;
 }
 
 .mojakartica
@@ -67,6 +68,7 @@
   width: 250px;
   margin-left: 20px;
   margin-bottom: 40px;
+  align-items: center;
 }
 
 .karticaoglas

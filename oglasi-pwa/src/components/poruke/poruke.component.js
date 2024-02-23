@@ -48,7 +48,7 @@ render(){
         <Table striped bordered hover responsive>
          <thead>
           <tr>
-            <th>Šifra poruke</th> <th>Šifra oglasa</th>  <th>Ime pošiljatelja</th> <th>E-mail</th> <th>Datum</th> <th>  </th>
+            <th>Šifra poruke</th> <th>Šifra oglasa</th>  <th>Ime pošiljatelja</th> <th>E-mail</th> <th>Datum</th>
           </tr>
          </thead>
          <tbody>

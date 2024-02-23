@@ -26,7 +26,7 @@ export default class KontrolnaPloca extends Component{
       <Row>
         <Col>
         <Card className="mojakartica" >
-          <Card.Img variant="top" src={users} />
+          <Card.Img variant="top" src={users} style={{ width: '200px'}}/>
           <Card.Body>
             <Card.Title className="sredina">Korisnici</Card.Title>
           </Card.Body>
@@ -43,7 +43,7 @@ export default class KontrolnaPloca extends Component{
 
         <Col>
         <Card className="mojakartica">
-          <Card.Img variant="top" src={listing} />
+          <Card.Img variant="top" src={listing} style={{ width: '200px'}}/>
           <Card.Body>
             <Card.Title className="sredina">Oglasi</Card.Title>
           </Card.Body>
@@ -60,7 +60,7 @@ export default class KontrolnaPloca extends Component{
 
         <Col>
         <Card className="mojakartica">
-          <Card.Img variant="top" src={imail} />
+          <Card.Img variant="top" src={imail} style={{ width: '200px'}}/>
           <Card.Body>
             <Card.Title className="sredina">Poruke</Card.Title>
           </Card.Body>

@@ -28,7 +28,7 @@ export default class Pocetna extends Component{
           <Card.Body>
             <Card.Link href="/oglasi/poklanjam" className="mojlink">Oglasi POKLANJAM</Card.Link>
           </Card.Body>
-          <Card.Img variant="top" src={poklanjam} />
+          <Card.Img variant="top" src={poklanjam} style={{ width: '200px'}}/>
         </Card>
         </Col>
 
@@ -37,7 +37,7 @@ export default class Pocetna extends Component{
           <Card.Body>
             <Card.Link href="/oglasi/trazim" className="mojlink">Oglasi TRAŽIM</Card.Link>
           </Card.Body>
-          <Card.Img variant="top" src={trazim} />
+          <Card.Img variant="top" src={trazim} style={{ width: '200px'}} />
         </Card>
         </Col>
 
@@ -46,7 +46,7 @@ export default class Pocetna extends Component{
           <Card.Body>
             <Card.Link href="/oglasi/novioglas" className="mojlink">OBJAVI novi oglas</Card.Link>
           </Card.Body>
-          <Card.Img variant="top" src={objavljujem} />
+          <Card.Img variant="top" src={objavljujem} style={{ width: '200px'}}/>
         </Card>
         </Col>
       </Row>
